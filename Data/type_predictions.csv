@@ -2923,7 +2923,7 @@ punk_id,type,accessories,type_ML,type_PRED
 2921,Male,"['Cigarette', 'Shaved Head']",0,0
 2922,Male,"['Cap', 'Earring', '3D Glasses']",0,0
 2923,Male,"['Stringy Hair', 'Buck Teeth', 'Shadow Beard', 'Regular Shades']",0,0
-2924,Ape,['Hoodie'],2,1
+2924,Ape,['Hoodie'],2,2
 2925,Male,"['Police Cap', 'Earring', 'Nerd Glasses']",0,0
 2926,Male,"['Messy Hair', 'Mustache', 'Nerd Glasses']",0,0
 2927,Male,['Normal Beard'],0,0
@@ -5055,7 +5055,7 @@ punk_id,type,accessories,type_ML,type_PRED
 5053,Female,"['Vape', 'Wild White Hair', 'Hot Lipstick', 'Earring']",1,1
 5054,Female,['Clown Eyes Blue'],1,1
 5055,Female,"['Black Lipstick', 'Straight Hair', 'Regular Shades', 'Earring']",1,1
-5056,Male,"['Beanie', 'Luxurious Beard', 'Earring', 'VR']",0,2
+5056,Male,"['Beanie', 'Luxurious Beard', 'Earring', 'VR']",0,0
 5057,Male,"['Chinstrap', 'Classic Shades', 'Earring', 'Shaved Head', 'Mole']",0,0
 5058,Male,"['Stringy Hair', 'Small Shades']",0,0
 5059,Male,"['Gold Chain', 'Headband', 'Regular Shades']",0,0
