@@ -2565,7 +2565,7 @@ punk_id,type,accessories,type_ML,type_PRED
 2563,Female,"['Mohawk', 'Earring']",1,1
 2564,Male,"['Front Beard', 'Bandana']",0,0
 2565,Male,"['Mohawk Thin', 'Shadow Beard', 'Regular Shades']",0,0
-2566,Zombie,"['Messy Hair', 'Normal Beard']",2,2
+2566,Zombie,"['Messy Hair', 'Normal Beard']",2,0
 2567,Male,"['Cigarette', 'Fedora', 'Mustache']",0,0
 2568,Male,"['Wild Hair', 'Mole']",0,0
 2569,Male,"['Shadow Beard', 'Shaved Head', 'Eye Patch']",0,0
@@ -8908,7 +8908,7 @@ punk_id,type,accessories,type_ML,type_PRED
 8906,Female,"['Welding Goggles', 'Hot Lipstick', 'Stringy Hair']",1,1
 8907,Female,"['Horned Rim Glasses', 'Pink With Hat', 'Earring']",1,1
 8908,Male,"['Front Beard', 'Mohawk Thin', 'Smile', 'Small Shades']",0,0
-8909,Zombie,"['Luxurious Beard', 'Police Cap', 'Regular Shades']",2,2
+8909,Zombie,"['Luxurious Beard', 'Police Cap', 'Regular Shades']",2,0
 8910,Male,"['Police Cap', 'Nerd Glasses']",0,0
 8911,Male,"['Big Shades', 'Normal Beard', 'Mohawk Dark']",0,0
 8912,Female,"['Purple Eye Shadow', 'Hot Lipstick', 'Wild Blonde']",1,1
