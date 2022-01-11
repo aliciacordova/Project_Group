@@ -1,0 +1,63 @@
+Evaluate the Model 
+
+# Evaluate the model using the test data
+model_loss, model_accuracy = nn_model.evaluate(X_test_scaled,y_test,verbose=2)
+print(f"Loss: {model_loss}, Accuracy: {model_accuracy}")
+
+
+ Predict the classification of a new set of blob data
+new_X, new_Y = make_blobs(n_samples=10, centers=2, n_features=2, random_state=78)
+new_X_scaled = X_scaler.transform(new_X)
+(nn_model.predict(new_X_scaled) > 0.5).astype("int32")
+
+
+# Import our dependencies
+import pandas as pd
+import sklearn as skl
+
+# Read in our ramen data
+ramen_df = pd.read_csv("ramen-ratings.csv")
+
+# Print out the Country value counts
+country_counts = ramen_df.Country.value_counts()
+country_counts
+
+# Visualize the value counts
+country_counts.plot.density()
+
+# Determine which values to replace
+replace_countries = list(country_counts[country_counts < 100].index)
+
+# Replace in DataFrame
+for country in replace_countries:
+    ramen_df.Country = ramen_df.Country.replace(country,"Other")
+
+
+# Check to make sure binning was successful
+ramen_df.Country.value_counts()
+
+# Create the OneHotEncoder instance
+from sklearn.preprocessing import OneHotEncoder
+enc = OneHotEncoder(sparse=False)
+
+# Fit the encoder and produce encoded DataFrame
+encode_df = pd.DataFrame(enc.fit_transform(ramen_df.Country.values.reshape(-1,1)))
+
+# Rename encoded columns
+encode_df.columns = enc.get_feature_names(['Country'])
+encode_df.head()
+
+# Merge the two DataFrames together and drop the Country column
+ramen_df.merge(encode_df,left_index=True,right_index=True).drop("Country",1)
+
+ENCODE CATEGORICAL DATA
+# Import our input dataset
+attrition_df = pd.read_csv('HR-Employee-Attrition.csv')
+attrition_df.head()
+
+# Generate our categorical variable list
+attrition_cat = attrition_df.dtypes[attrition_df.dtypes == "object"].index.tolist()
+
+# Check the number of unique values in each column
+attrition_df[attrition_cat].nunique()
+
