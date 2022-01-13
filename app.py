@@ -22,3 +22,17 @@ def index():
    CryptoPunks(CollectionName) = mongo.db.CryptoPunks(CollectionName).find_one()
    return render_template("index.html", CryptoPunks=CryptoPunks
 
+
+#MISSING: function to 
+
+@app.route("/Select")
+def Select():
+   Collection_name = mongo.db.collection_name
+   select_data = #code that uses the input from the drop down menu and search the data of an specific CryptoPunk
+   Collection_name.update_one({}, {"$set":select_data}, upsert=True)
+   return redirect('/', code=302)
+
+#Last lines of code to run the app
+
+if __name__ == "__main__":
+   app.run()
