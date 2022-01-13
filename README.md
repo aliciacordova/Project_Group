@@ -27,7 +27,7 @@ Our model should predict, given an image file, which type of CryptoPunks the ima
 - We divide task according to the different roles (triangle, circle, square).
 - In order to keep updated on the status of each of our parts of the project, we organized regular zoom meetings.
 
-### Machine Learning Model
+### ✓ Machine Learning Model
 
 The preliminary data includes columns that describe the information refer to 10.000 Crypto Punks
 
@@ -42,7 +42,7 @@ We decide to create 2 models. One classification model to determines which type 
 3- After careful analyzing, we used the sequential models and Neural network model to make predictions. After adding some layers using Relu, Sofmax (for Classification model) and Sigmoid (for Binary Model), the accuracy rate for both model was 100%. This means our models accurately predict the outcome of all the Crypto Punk images .
 
 
-### Database
+### ✓ Database
 
 Team members present a provisional database that stands in for the final database and accomplishes the following:
 
@@ -50,18 +50,19 @@ Team members present a provisional database that stands in for the final databas
 
 ✓ Draft machine learning module is connected to the provisional database
 
-### Presentation
+### ✓ Presentation
 
-Our presentation can be found here Google Slide Presentation
+Our presentation can be found here Google Slide Presentation https://docs.google.com/presentation/d/17QrwkucoQluYAyOd0sKMI5KkpIkx8blE9acwNgYu1Bc/edit#slide=id.p
 
-### Dashboard
+### ✓ Dashboard
 
-## The link to the dashboard repository is Link Dashboard Repo.
+The link to the dashboard repository is Link Dashboard Repo.
 
-DASHBOARD CONCEPT
+DASHBOARD BLUEPRINT
 
 Thus far, we have obtained the information we need to present in a dashboard. We built a successful machine learning model that can predict the type of CryptoPunks, as well as predict whether it has glasses or not. Now we need to visualize the prediction data for each CryptoPunk.
- Specifically, the user should be able to select a CryptoPunk and identify what type it is and whether has glasses or not. This way, the user will be able to interact with the data and have a better understanding of it. 
+
+Specifically, the user should be able to select a CryptoPunk and identify what type it is and whether has glasses or not. This way, the user will be able to interact with the data and have a better understanding of it. 
 
 What we need to create:
 
@@ -86,7 +87,6 @@ Glasses Prediction
 -	Option A: Create a Red and Green button group that changes the intensity of the color depending whether the CryptoPunk has glasses or not.  Using the opacity property, reduce the opacity of red when the option is YES or reduce the opacity of green when the option is NO. 
 Resource: https://www.w3schools.com/css/css3_buttons.asp 
 
-
 Type Prediction
 -	Option A: Create an image box that changes the icon depending on the prediction. Display de Female Icon if its female, Male Icon if its Male or Other Icon if its other. 
 o	Recources: 
@@ -97,7 +97,4 @@ o	None Icon https://www.toptal.com/designers/htmlarrows/punctuation/non-breaking
 -	Option B: Create a Gauge chart that places the needle according to the type
                               
 
-
-
-
-## Dashboard Live Demo (heroku)
+## ✓ Dashboard Live Demo (heroku)
