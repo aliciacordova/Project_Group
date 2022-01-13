@@ -18,7 +18,7 @@ A second dataset cotains png image file for each of the 10,000 CryptoPunks NFT's
 
 https://www.kaggle.com/tunguz/cryptopunks?select=imgs
 
-### ✓ Questions they hope to answer with the data
+### ✓ Questions they hope to answer with the data.
 
 Our model should predict, given an image file, which type of CryptoPunks the image represents. [“Male', 'Female', 'Zombie'. 'Ape' or 'Alien']. 
 
