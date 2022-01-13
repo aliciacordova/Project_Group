@@ -1,1 +1,1 @@
-{"type_ML":{"0":0,"1":1,"2":2},"type_class":{"0":"Male","1":"Female","2":"Other"}}
+{"schema":{"fields":[{"name":"type_ML","type":"integer"},{"name":"type_class","type":"string"}],"pandas_version":"0.20.0"},"data":[{"type_ML":0,"type_class":"Male"},{"type_ML":1,"type_class":"Female"},{"type_ML":2,"type_class":"Other"}]}

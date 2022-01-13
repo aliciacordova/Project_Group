@@ -1,1 +1,1 @@
-{"glasses_ML":{"0":0,"1":1},"glasses_class":{"0":"No Glasses","1":"Has Glasses"}}
+{"schema":{"fields":[{"name":"glasses_ML","type":"integer"},{"name":"glasses_class","type":"string"}],"pandas_version":"0.20.0"},"data":[{"glasses_ML":0,"glasses_class":"No Glasses"},{"glasses_ML":1,"glasses_class":"Has Glasses"}]}
