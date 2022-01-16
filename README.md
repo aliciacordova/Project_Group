@@ -1,7 +1,7 @@
 # CRYPTO PUNKS Machine Learning Project
 
 ### ✓ Selected topic: 
-Explore the surging world of  NFT's, focused on a collection of 10,000 digital assets known as Crypto Punks, by analyzing the associated *PNG* images using Machine Learning, to establish which graphical features and attributes determine the type of Crypto Punk, such as *'Male'*, *'Female'*, and *'Other'* (*'Zombie'*, *'Ape'* or *'Alien'*) or if the Crypto Punk has a given accessory, in our case, glasses, which includes any of 9 different accessories (*'3D Glasses'*, *'Big Shades'*, *'Classic Shades'*, *'Horned Rim Glasses'*, *'Nerd Glasses'*, *'Regular Glasses'*, *'Small Shades'*,  *'VR'* and *'Welding Goggles'*). 
+Explore the surging world of  NFT's, focused on a collection of 10,000 digital assets known as Crypto Punks. The aim is to analize the associated *PNG* images using Machine Learning and establish which graphical features and attributes determine either the type of Crypto Punk (*'Male'*, *'Female'*, and *'Other'* -*'Zombie'*, *'Ape'* or *'Alien'*-) or if the Crypto Punk has glasses (*'3D Glasses'*, *'Big Shades'*, *'Classic Shades'*, *'Horned Rim Glasses'*, *'Nerd Glasses'*, *'Regular Glasses'*, *'Small Shades'*,  *'VR'* and *'Welding Goggles'*). 
 
 ### ✓ Reason why they selected their topic: 
 With this project we seek to apply our data analytics skills using Machine Learning while expanding our knowledge-base to include an image classification model, as this is an increasingly relevant field in the use of Machine Learning. We also wanted to further our skills in using *MongoDB*, a non-relational database.
@@ -33,11 +33,21 @@ Our project runs two models to predict, given an image file, the attributes of t
 
 ## Machine Learning Model
 
+The preliminary data includes columns that describe the information refer to 10.000 Crypto Punks. 
+
+After connecting to the database, we printed out the header for each column to see all of the features available. From that list, we chose the features we need to create the Machine Learning Model.
+
+We decide to create 2 models. One classification model to determines which type if Crypto Punks the image is. And one binary model to determine is the Crypto Punk image has glasses or not. For both models we did the same process:
+
+The data was split into training and test data using the train_test_split function. We used the default 75% to 25% split.
+
 The project employs a Convolutional - Neural Network (CNN) model.
 
-The model operates several layers as presented in the image below:
+After careful analyzing, we used the sequential models and Neural network model to make predictions. After adding some layers using Relu, Sofmax (for Classification model) and Sigmoid (for Binary Model), the accuracy rate for both model was 100%. This means our models accurately predict the outcome of all the Crypto Punk images .
 
-![Machine Learning CNN Model](filename.png)
+The model operates several layers as presented in the image below:
+![ConvNN_Image](https://user-images.githubusercontent.com/87447639/149681824-c98a2e0d-75c0-4c75-8516-46efc8be58a7.png)
+
 
 The input data for the models is a list of numpy arrays of dimension 24 x 24 x 4. These arrays represent the digital information that conforms the image. The original images are 24 pixels by 24 pixels, and the arrays express the value of each pixel as a number between 0 and 255, representing the RGB color of the pixel. Before providing the input to the models, the arrays are normalized by dividing the values by 255, so that they fall in a range between 0 and 1.
 
@@ -62,6 +72,8 @@ The collections can be cross-referenced using the field *'punk_id'* as key.
 The database and collections can be visualized using *MongoDB Compass* by establishing a connection with *MongoDB Atlas* through a secure URL.
 
 ## Description of the Data Exploration Phase
+
+![Database_ERD](https://user-images.githubusercontent.com/87447639/149681985-a86e2efd-dbc7-48c5-9e67-369967f2df83.png)
 
 Two datasets where available for our analysis. One contains all blockchain transactions since the minting of the Crypto Punk NFT collection, and is available as a JSON file in Kaggle. The other associated data set is a collection of 10,000 *png* files also available in Kaggle, containing the individual images of each Crypo Punk.
 
