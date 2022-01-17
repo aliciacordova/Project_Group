@@ -43,7 +43,7 @@ The data was split into training and test data using the train_test_split functi
 
 The project employs a Convolutional - Neural Network (CNN) model.
 
-After careful analyzing, we used the sequential models and Neural network model to make predictions. After adding some layers using Relu, Sofmax (for Classification model) and Sigmoid (for Binary Model), the accuracy rate for both model was 100%. This means our models accurately predict the outcome of all the Crypto Punk images .
+After careful analyzing, we used the sequential models and Neural network model to make predictions. After adding some layers using Relu, Sofmax (for Classification model) and Sigmoid (for Binary Model), the accuracy rate for both model was 100%. This means our models accurately predict the outcome of all the Crypto Punk images.
 
 The model operates several layers as presented in the image below:
 ![ConvNN_Image](https://user-images.githubusercontent.com/87447639/149681824-c98a2e0d-75c0-4c75-8516-46efc8be58a7.png)
