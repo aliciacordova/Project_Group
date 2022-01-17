@@ -1,11 +1,7 @@
 # CRYPTO PUNKS Machine Learning Project
 
-## Presentation
-*[Content
-Team members have drafted their project, including the following:]*
-
 ### ✓ Selected topic: 
-Explore the surging world of  NFT's, focused on a collection of 10,000 digital assets known as Crypto Punks, by analyzing the associated *PNG* images using Machine Learning, to establish which graphical features and attributes determine the type of Crypto Punk, such as *'Male'*, *'Female'*, and *'Other'* (*'Zombie'*, *'Ape'* or *'Alien'*) or if the Crypto Punk has a given accessory, in our case, glasses, which includes any of 9 different accessories (*'3D Glasses'*, *'Big Shades'*, *'Classic Shades'*, *'Horned Rim Glasses'*, *'Nerd Glasses'*, *'Regular Glasses'*, *'Small Shades'*,  *'VR'* and *'Welding Goggles'*). 
+Explore the surging world of  NFT's, focused on a collection of 10,000 digital assets known as Crypto Punks. The aim is to analize the associated *PNG* images using Machine Learning and establish which graphical features and attributes determine either the type of Crypto Punk (*'Male'*, *'Female'*, and *'Other'* -*'Zombie'*, *'Ape'* or *'Alien'*-) or if the Crypto Punk has glasses (*'3D Glasses'*, *'Big Shades'*, *'Classic Shades'*, *'Horned Rim Glasses'*, *'Nerd Glasses'*, *'Regular Glasses'*, *'Small Shades'*,  *'VR'* and *'Welding Goggles'*). 
 
 ### ✓ Reason why they selected their topic: 
 With this project we seek to apply our data analytics skills using Machine Learning while expanding our knowledge-base to include an image classification model, as this is an increasingly relevant field in the use of Machine Learning. We also wanted to further our skills in using *MongoDB*, a non-relational database.
@@ -27,12 +23,6 @@ https://www.kaggle.com/tunguz/cryptopunks?select=imgs
 
 Our project runs two models to predict, given an image file, the attributes of the image. The first model predicts which type of CryptoPunks the image represents, while the second model predicts if the image has glasses or not. 
 
-## GitHub
-
-## Main Branch 
-### ✓ Includes a README.md
-
-README.md README.md must include: 
 
 ### ✓ Description of the communication protocols
 
@@ -43,17 +33,21 @@ README.md README.md must include:
 
 ## Machine Learning Model
 
-*[Team members present a provisional machine learning model that stands in for the final machine learning model and accomplishes the following:
+The preliminary data includes columns that describe the information refer to 10.000 Crypto Punks. 
 
-✓ Takes in data in from the provisional database 
+After connecting to the database, we printed out the header for each column to see all of the features available. From that list, we chose the features we need to create the Machine Learning Model.
 
-✓ Outputs label(s) for input data]*
+We decide to create 2 models. One classification model to determines which type if Crypto Punks the image is. And one binary model to determine is the Crypto Punk image has glasses or not. For both models we did the same process:
+
+The data was split into training and test data using the train_test_split function. We used the default 75% to 25% split.
 
 The project employs a Convolutional - Neural Network (CNN) model.
 
-The model operates several layers as presented in the image below:
+After careful analyzing, we used the sequential models and Neural network model to make predictions. After adding some layers using Relu, Sofmax (for Classification model) and Sigmoid (for Binary Model), the accuracy rate for both model was 100%. This means our models accurately predict the outcome of all the Crypto Punk images .
 
-![Machine Learning CNN Model](filename.png)
+The model operates several layers as presented in the image below:
+![ConvNN_Image](https://user-images.githubusercontent.com/87447639/149681824-c98a2e0d-75c0-4c75-8516-46efc8be58a7.png)
+
 
 The input data for the models is a list of numpy arrays of dimension 24 x 24 x 4. These arrays represent the digital information that conforms the image. The original images are 24 pixels by 24 pixels, and the arrays express the value of each pixel as a number between 0 and 255, representing the RGB color of the pixel. Before providing the input to the models, the arrays are normalized by dividing the values by 255, so that they fall in a range between 0 and 1.
 
@@ -61,15 +55,7 @@ For one of the models, the output label is 'type', represented as a one_hot_enco
 
 For the second model, the output label is 'glasses_ML'
 
-
-
 ## Database
-
-*[Team members present a provisional database that stands in for the final database and accomplishes the following:
-
-✓ Sample data that mimics the expected final database structure or schema 
-
-✓ Draft machine learning module is connected to the provisional database]*
 
 Our database consists of a *MongoDB* database, which has been loaded to the cloud using *MongoDB Atlas* cloud hosting service.
 
@@ -84,6 +70,8 @@ The collections can be cross-referenced using the field *'punk_id'* as key.
 The database and collections can be visualized using *MongoDB Compass* by establishing a connection with *MongoDB Atlas* through a secure URL.
 
 ## Description of the Data Exploration Phase
+
+![Database_ERD](https://user-images.githubusercontent.com/87447639/149681985-a86e2efd-dbc7-48c5-9e67-369967f2df83.png)
 
 Two datasets where available for our analysis. One contains all blockchain transactions since the minting of the Crypto Punk NFT collection, and is available as a JSON file in Kaggle. The other associated data set is a collection of 10,000 *png* files also available in Kaggle, containing the individual images of each Crypo Punk.
 
@@ -109,3 +97,52 @@ A third ETL notebook reads the *csv* files, consolidates them into the three col
 but this time exports them to a *MongoDB Atlas* cluster in the cloud.
 
 The database will be accessed by our visualization dashboard through a connection string pointing to the secure *MongoDB Atlas* url associated with our database.
+
+### ✓ Presentation
+
+Our presentation can be found here Google Slide Presentation https://docs.google.com/presentation/d/17QrwkucoQluYAyOd0sKMI5KkpIkx8blE9acwNgYu1Bc/edit#slide=id.p
+
+### ✓ Dashboard
+
+The link to the dashboard repository is Link Dashboard Repo.
+
+DASHBOARD BLUEPRINT
+
+Thus far, we have obtained the information we need to present in a dashboard. We built a successful machine learning model that can predict the type of CryptoPunks, as well as predict whether it has glasses or not. Now we need to visualize the prediction data for each CryptoPunk.
+
+Specifically, the user should be able to select a CryptoPunk and identify what type it is and whether has glasses or not. This way, the user will be able to interact with the data and have a better understanding of it. 
+
+What we need to create:
+
+This dashboard consists of the following materials:
+Design
+
+![htlm1](https://user-images.githubusercontent.com/87447639/149423340-df51b870-6a79-4d77-9c39-3494b36233f9.PNG)
+
+![htlm2](https://user-images.githubusercontent.com/87447639/149423342-8f0f8623-d892-4776-bdba-f910aab5b6eb.PNG)
+
+Drop Down Menu
+-	Create a drop down menu so the user can select a CryptoPunk.
+-	Create an interactive button option to obtain more info about that Crypto Punk. When the user click that button a second page will be display with a menu to show “Graph Price”, “Accessories attributes” and “History Transaction”.  
+Crypto Punk Image
+-	Display the image of the selected cryptopunk
+o	Visual
+ 
+Crypto Punk Table Information
+-	Create a table containing basic information about the selected cryptopunk
+
+Glasses Prediction
+-	Option A: Create a Red and Green button group that changes the intensity of the color depending whether the CryptoPunk has glasses or not.  Using the opacity property, reduce the opacity of red when the option is YES or reduce the opacity of green when the option is NO. 
+Resource: https://www.w3schools.com/css/css3_buttons.asp 
+
+Type Prediction
+-	Option A: Create an image box that changes the icon depending on the prediction. Display de Female Icon if its female, Male Icon if its Male or Other Icon if its other. 
+o	Recources: 
+o	Female Icon https://www.toptal.com/designers/htmlarrows/symbols/female-sign/
+o	Male Icon https://www.toptal.com/designers/htmlarrows/symbols/male-sign/
+o	None Icon https://www.toptal.com/designers/htmlarrows/punctuation/non-breaking-hyphen/ 
+ 
+-	Option B: Create a Gauge chart that places the needle according to the type
+                              
+
+## ✓ Dashboard Live Demo (heroku)
