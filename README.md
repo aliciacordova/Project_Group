@@ -97,4 +97,4 @@ o	None Icon https://www.toptal.com/designers/htmlarrows/punctuation/non-breaking
 -	Option B: Create a Gauge chart that places the needle according to the type
                               
 
-## ✓ Dashboard Live Demo (heroku)
+## ✓ Dashboard Live Demo (Heroku)
