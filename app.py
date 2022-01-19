@@ -1,10 +1,16 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, jsonify, json, request, redirect, url_for
 from flask_pymongo import PyMongo
+from joblib import dump, load
+from pickle import dump as dump_p, load as load_p
+
+import numpy as np
+import pandas as pd
+
 * import "FILENAME"
 
 app = Flask(__name__)
 # Use flask_pymongo to set up mongo connection
-app.config["MONGO_URI"] = "mongodb://localhost:27017/"DATABASE NAME"
+app.config["MONGO_URI"] = "mongodb+srv://cryptopunks:coding2021@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority
 mongo = PyMongo(app)
 
 #app.config["MONGO_URI"] tells Python that our app will connect to Mongo using a URI, a uniform resource identifier similar to a URL.
@@ -17,11 +23,17 @@ mongo = PyMongo(app)
 # CryptoPunks=CryptoPunks tells Python to use the collection in MongoDB
 #This function is what links our visual representation of our work, our web app, to the code that powers it.
 
-@app.route("/")
+@app.route("/test")
 def index():
-   CryptoPunks(CollectionName) = mongo.db.CryptoPunks(CollectionName).find_one()
+   CryptoPunks(crypto_punks_col) = mongo.db.CryptoPunks(crypto_punks_col).find_one()
    return render_template("index.html", CryptoPunks=CryptoPunks
 
+@app.route("/cryptopunk/<punk_id>")
+def cryptopunk(punk_id):
+    example = mongo.db.crypto_punks_col.find_one_or_404({'punk_id':punk_id})
+    return f'''
+      <h1>{punk_id}</h1>
+    '''
 
 #MISSING: function to 
 
