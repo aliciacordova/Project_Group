@@ -16,48 +16,103 @@
 </head>
 
 <body class="bg-dark">
-
-    <!-- Page Title and Background Image -->
-    <div class="wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 jumbotron text-center" style="background-image: url('https://www.hollywoodreporter.com/wp-content/uploads/2021/08/manyCryptopunks-H-2021.jpg?crop=0px%2C0px%2C1296px%2C725px&resize=681%2C383.jpg');
-        background-size: 30%; background-position: center; color: rgb(0, 0, 0); height: 250px;">
-                    <h1 style="margin-top: 50px;"> <mark>CryptoPunks Image Dashboard</mark></h1>
-                    <p><mark>Type a CryptoPunk ID and discover its attributes </mark></p>
-                </div>
+    <div class="container-fluid">
+        <!-- Page Title and Background Image -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 jumbotron text-center" style="background-image: url('https://www.hollywoodreporter.com/wp-content/uploads/2021/08/manyCryptopunks-H-2021.jpg?crop=0px%2C0px%2C1296px%2C725px&resize=681%2C383.jpg');
+    background-size: 30%; background-position: center; color: rgb(0, 0, 0); height: 250px;">
+                <h1 style="margin-top: 30px;"> <mark>CryptoPunks Image Dashboard</mark></h1>
+                <div><br><br></div>
+                <p><mark>Type a CryptoPunk ID and discover its attributes </mark></p>
             </div>
-
+        </div>
         <!--PAGE Input Form-->
         <div class="row">
-            <div class="col-md-3">
-                <div><br><br></div>
+            <!-- Row 1/3 -->
+          <div class="col-sm-3" style="background-color:lavender;">.col-sm-3
+            <div><br><br></div>
                 <div class="well">
                     <h5 style="color:rgb(5, 22, 24);">Enter a Punk ID from 0 to 10,000</h5>    
                     <p>
                         <form method="POST" action="/" role="form" , name="petform">
                             <label for="fid" style="color:rgb(5, 22, 24);" >Crypto Punk ID:</label><br>
-                            <input type="text" id="fid" name="fid" value = "range 0 to 10000"><br><br>
+                            <input type="text" id="fid" name="fid" style="color:rgb(5, 22, 24);" value = "range 0 to 10000"><br><br>
                             <input style="color:rgb(5, 22, 24);" type="submit" value="Submit">
                         </form>
                     </p>    
 
                 </div>
+          </div>
+                <!-- Row 2/3 -->
+          <div class="col-sm-4" style="background-color:lightcyan;" id="Selected_Image">
+                 <h3 style="color:rgb(5, 22, 24);">Crypto Punk Image</h3>    
+                 <img src="https://www.larvalabs.com/public/images/cryptopunks/punk3100.png" alt="Punk 3100" width="144" height="144" class="pixelated" style="background:#638596" >
+           </div >
+                <!-- Row 1/3 -->
+           <div class="col-sm-5" style="background-color:lightgray;">
+            <h3 style="color:rgb(5, 22, 24);">Basic Info Table</h3>    
             </div>
         </div>
-        <!-- Page Output Form-->  
-        <div><br></div>
-        
-        <div class="col-md-8">
-            <div id="Selected_Image">
-            <img src="https://www.larvalabs.com/public/images/cryptopunks/punk3100.png" alt="Punk 3100" width="144" height="144" class="pixelated" style="background:#638596" >
-            </div>
+            <div class="row">
+                <!-- Row 1/3 -->
+                <div class="col-sm-3">.col-sm-3
+
+                </div>
+                <!-- Row 2/3 -->
+                <div class="col-sm-6">.col-sm-4
+                    <h3 style="color:rgb(5, 22, 24);">Type Prediction</h3>    
+                </div>
+                <!-- Row 3/3 -->
+                <div class="col-sm-3">.col-sm-5
+                    <h3 style="color:rgb(5, 22, 24);">Glasses Prediction</h3>    
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Row 1/2 -->
+                <div class="col-sm-3">.col-sm-3
+
+                </div>
+                <!-- Row 2/2 -->
+                <div class="col-sm-9">.col-sm-9
+                    <h3 style="color:rgb(5, 22, 24); text-align:center;">Price Graph</h3>    
+                </div>
+
+              </div>
+
+              <div class="row">
+                <!-- Row 1/2 -->
+                <div class="col-sm-3">.col-sm-3
+
+                </div>
+                <!-- Row 2/2 -->
+                <div class="col-sm-9">.col-sm-9
+                    <h3 style="color:rgb(5, 22, 24); text-align:center;">Accesories Graph</h3>    
+                </div>
+
+              </div>
+
+              <div class="row">
+                <!-- Row 1/2 -->
+                <div class="col-sm-3">.col-sm-3
+
+                </div>
+                <!-- Row 2/2 -->
+                <div class="col-sm-9">.col-sm-9
+                    <h3 style="color:rgb(5, 22, 24); text-align:center;">Transaction History Graph</h3>    
+                </div>
+
+              </div>
+
+
+
+         
         </div>
+      </div>
 
-        
 
-    </div>      
-
+    
+    
 
 
 </body>
