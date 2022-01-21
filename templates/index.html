@@ -21,11 +21,11 @@
     <div class="container-fluid">
         <!-- Page Title and Background Image -->
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 jumbotron text-center" style="background-image: url('https://www.hollywoodreporter.com/wp-content/uploads/2021/08/manyCryptopunks-H-2021.jpg?crop=0px%2C0px%2C1296px%2C725px&resize=681%2C383.jpg');
-    background-size: 30%; background-position: center; color: rgb(0, 0, 0); height: 250px;">
-                <h1 style="margin-top: 30px;"> <mark>CryptoPunks Image Dashboard</mark></h1>
+            <div class="col-xs-12 col-sm-12 col-md-12 jumbotron text-center" ;
+                background-size: 30%; background-position: center; color: rgb(0, 0, 0); height: 250px;>
+                <h1 class="mb-3 h1" >CryptoPunks Image Dashboard</h1>
                 <div><br><br></div>
-                <p><mark>Type a CryptoPunk ID and discover its attributes </mark></p>
+                <p style="color:white;" >Type a CryptoPunk ID and discover its attributes</p>
             </div>
         </div>
         <!--PAGE Input Form-->
@@ -78,7 +78,7 @@
                 <!-- Row 2/2 -->
                 <div class="col-sm-9">.col-sm-9
                     <h3 style="color:rgb(5, 22, 24); text-align:center;">Price Graph</h3>
-                    <canvas id="myChart" width="400" height="400"></canvas>
+                    <canvas id="priceChart" width="400" height="400"></canvas>
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
