@@ -9,9 +9,12 @@ import plotly.express as px
 import pandas as pd
 import random
 from webdriver_manager.chrome import ChromeDriverManager
+from console_logging.console import Console
 
 # Import user and password
 from config import user, password 
+
+console = Console()
 
 # Create the Flask instance
 app = Flask(__name__)
@@ -121,9 +124,11 @@ def txn_history(id_selection):
 # BUILD THE CRYPTO PUNKS FACTS
 ##############################################
 
-@app.route("/punk_facts/<id_selection>")
+@app.route("/punk_facts/<id_selection>", methods=("POST", "GET"))
 def punkFacts(id_selection):
 
+    console.log(id_selection)
+    
     # construct the connection string for Atlas
     CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
     # Create the connection client to Atlas
@@ -134,10 +139,12 @@ def punkFacts(id_selection):
     # the data from the database)
     attributes = pymongo.collection.Collection(db, 'attributes_col')
     crypto_punks = pymongo.collection.Collection(db, 'crypto_punks_col')
-        
+
+    console.log(attributes)
+
     # search the database for the unique punk_id value provided as input to 
     # the function and assign the output to a variable. The output will be an object.
-    crypto_punks_data = json.loads(dumps(crypto_punks.find_one({"punk_id":id_selection}))) #[Replace "3600" for sample in the final code]
+    crypto_punks_data = json.loads(dumps(crypto_punks.find({"punk_id":id_selection}))) #[Replace "3600" for sample in the final code]
     
     # import the list of all crypto punk attributes
     attributes_data = json.loads(dumps(attributes.find()))
@@ -176,14 +183,24 @@ def punkFacts(id_selection):
     
     # remove the index
     punk_facts_df = punk_facts_df.set_index("Attribute")
+
+    console.log(punk_facts_df)
     
     # test that the data is returned correctly [ELIMINATE THIS IN THE FINAL CODE]
-    return f'''
-      <h1>{punk_facts_df.to_html}</h1>
-    '''    
+    #return f'''
+    #  <h1>{punk_facts_df.to_html}</h1>
+    #'''    
 
     # 6. export the dataframe to html
-    #return punk_facts_df.to_html(classes="table")
+    #return render_template("index.html")
+
+    #return punk_facts_df.to_html()
+    # Convert the dataframe to html and assign it to a variable
+    punk_facts = punk_facts_df.to_html()
+
+    # Return the dataframe object to a copy of the index html, and point
+    # the variable to the html container name where it will be displayed
+    return render_template('index.html', punk_facts=punk_facts)
   
 
 
