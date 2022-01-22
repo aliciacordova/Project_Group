@@ -6,6 +6,9 @@ import pymongo
 from bson.json_util import dumps
 import json
 import plotly.express as px
+import pandas as pd
+import random
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Import user and password
 from config import user, password 
@@ -29,7 +32,7 @@ def Chart():
 
 # [FOR THE TIME BEING, PASS THE ID AS A FIXED VARIABLE. THIS VARIABLE SHOULD COME 
 # FROM THE INPUT FIELD IN THE HTML]
-id_selection = "3600"
+id_selection = "3600" #str(random.randrange(0,10000,1))
 
 
 @app.route("/traders/<id_selection>")
@@ -121,21 +124,67 @@ def txn_history(id_selection):
 @app.route("/punk_facts/<id_selection>")
 def punkFacts(id_selection):
 
-  # 1. read the punk data from the crypto_punk_col
-  #crypto_punks_data = crypto_punks(id_selection)
-  # 2. select from this data the type and accessories
+    # construct the connection string for Atlas
+    CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
+    # Create the connection client to Atlas
+    client = pymongo.MongoClient(CONNECTION_STRING) 
+    # indicate the database to access in Atlas
+    db = pymongo.database.Database(client,'crypto_punks_mdb')
+    # assign the connection to the database and collection to variables (i.e. this still is not 'reading' 
+    # the data from the database)
+    attributes = pymongo.collection.Collection(db, 'attributes_col')
+    crypto_punks = pymongo.collection.Collection(db, 'crypto_punks_col')
+        
+    # search the database for the unique punk_id value provided as input to 
+    # the function and assign the output to a variable. The output will be an object.
+    crypto_punks_data = json.loads(dumps(crypto_punks.find_one({"punk_id":id_selection}))) #[Replace "3600" for sample in the final code]
+    
+    # import the list of all crypto punk attributes
+    attributes_data = json.loads(dumps(attributes.find()))
+    
+    # Convert the json lists to dataframes and drop un-needed columns
+    punks_df = pd.DataFrame(crypto_punks_data)
+    punks_df = punks_df.drop(columns=["_id"])
+    attributes_df = pd.DataFrame(attributes_data)
+    attributes_df = attributes_df.drop(columns=["_id"])
 
-  # 3. read a new collection (to be exported to MongoDB) called accessories_col
+    # Create the summary punk_facts dataframe
+    # 1. Create an empty list for all the attributes in the punk_id
+    punk_attribute_list = []
 
-  # 4. search the accessories_col for the accessories shared with the crypto_punk to get the counts
-  #for items in punk_accessories
+    # 2. Populate the list
+    punk_attribute_list.append(punks_df.at[0,"type"])
+    punk_accessories = punks_df.at[0,"accessories"]
+    for accessory in punk_accessories:
+      punk_attribute_list.append(accessory)
+    punk_attribute_list.append(str(len(punk_accessories))+" accessories")
+    
+    # Create the core dataframe of punk facts
+    punk_facts_df = attributes_df[attributes_df['Attribute'].isin(punk_attribute_list)]
+    # reset index
+    punk_facts_df.reset_index(drop=True, inplace=True)
+    # convert the "counts" column to numeric
+    punk_facts_df["counts"] = pd.to_numeric(punk_facts_df["counts"])
 
+    # Add rarity scores
+    for row in range(len(punk_facts_df)):
+      punk_facts_df.at[row,"Rarity %"] = punk_facts_df.at[row,"counts"]/10000 * 100
+      punk_facts_df.at[row,"Rarity Score"] = 10000 / punk_facts_df.at[row,"counts"]
+      
+    # rename the "counts" column
+    punk_facts_df.rename(columns = {"counts":"Punks that Share this Attribute"}, inplace = True)
+    
+    # remove the index
+    punk_facts_df = punk_facts_df.set_index("Attribute")
+    
+    # test that the data is returned correctly [ELIMINATE THIS IN THE FINAL CODE]
+    return f'''
+      <h1>{punk_facts_df.to_html}</h1>
+    '''    
 
-  # 5. build a dataframe (df) with the rarity values
-
-
-  # 6. export the dataframe to html
-  return df.to_html()
+    # 6. export the dataframe to html
+    #return punk_facts_df.to_html(classes="table")
+  
 
 
 
