@@ -3,5 +3,5 @@ user = "cryptopunks"
 password = "coding2021"
 
 # AWS S3 bucket key and secret key
-key_id = "AKIAZRR4RFG5TXYXZHBJ"
-secret_access_key = "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"
+key_id = "AKIAZRR4RFG5WUCCKX5E"
+secret_access_key = "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"

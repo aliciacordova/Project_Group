@@ -1,7 +1,8 @@
 
-#########################################################################################
+
+##################################################################
 # IMPORT DEPENDENCIES
-#########################################################################################
+##################################################################
 
 # Import Dependencies
 from flask import Flask, render_template, jsonify, json, request, redirect, url_for
@@ -25,16 +26,14 @@ from textwrap import wrap
 # Import AWS SDK
 import boto3
 
-# Import thread manager
-import _thread
-
-#########################################################################################
+##################################################################
 
 
 
 ##############################################
-# BUILD THE CRYPTO PUNKS FACTS 
+# BUILD THE CRYPTO PUNKS FACTS
 ##############################################
+
 def punkFacts(id_selection):
 
     # construct the connection string for Atlas
@@ -101,14 +100,16 @@ def punkFacts(id_selection):
 
 
 
-#########################################################################################
+##############################################
 # BUILD THE CRYPTO PUNK GRAPHS
-#########################################################################################
+##############################################
 def buildGraphs (id_selection):
     # construct the connection string for Atlas
     CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
+
     # Create the connection client to Atlas
     client = pymongo.MongoClient(CONNECTION_STRING) 
+
     # indicate the database to access in Atlas
     db = pymongo.database.Database(client,'crypto_punks_mdb')
       
@@ -132,37 +133,10 @@ def buildGraphs (id_selection):
     # Re-index the dataframe
     deals_df = deals_df.reset_index(drop=True)
 
+    ########################################
+    # BUILD PRICE HISTORY CHART
+    ########################################
 
-
-########################################
-# BUILD PRICE HISTORY CHART
-########################################
-def buildPriceGraph (id_selection):
-    # construct the connection string for Atlas
-    CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
-    # Create the connection client to Atlas
-    client = pymongo.MongoClient(CONNECTION_STRING) 
-    # indicate the database to access in Atlas
-    db = pymongo.database.Database(client,'crypto_punks_mdb')
-      
-    # assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
-    # the data from the database)
-    deals = pymongo.collection.Collection(db, 'txn_history_col')
-          
-    # search the database for the unique punk_id value provided as input to 
-    # the function and assign the output to a variable. The output will be an object.
-    deals_data = json.loads(dumps(deals.find({"punk_id":id_selection})))
-
-    # Convert the json strings to dataframe
-    deals_df = pd.DataFrame(deals_data)
-    deals_df = deals_df.drop(columns=["_id"])
-
-    # Convert date to datetime
-    deals_df['date'] = pd.to_datetime(deals_df['date'])
-
-    # Re-index the dataframe
-    deals_df = deals_df.reset_index(drop=True)
-    
     # Display transaction and price history
     sold = deals_df[deals_df.txn_type == 'Sold'].groupby("date").agg({"eth": ["median"]}).reset_index("date")
     bid = deals_df[deals_df.txn_type == 'Bid'].groupby("date").agg({"eth": ["median"]}).reset_index("date")
@@ -184,39 +158,11 @@ def buildPriceGraph (id_selection):
     # Call the function to Export Chart to AWS
     exportAWS(image_name)
     
-    return
 
+    ########################################
+    # BUILD THE TRANSACTION HISTORY CHART
+    ########################################
 
-
-
-########################################
-# BUILD THE TRANSACTION HISTORY CHART
-########################################
-def buildTransactionGraph (id_selection):
-    # construct the connection string for Atlas
-    CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
-    # Create the connection client to Atlas
-    client = pymongo.MongoClient(CONNECTION_STRING) 
-    # indicate the database to access in Atlas
-    db = pymongo.database.Database(client,'crypto_punks_mdb')
-      
-    # assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
-    # the data from the database)
-    deals = pymongo.collection.Collection(db, 'txn_history_col')
-          
-    # search the database for the unique punk_id value provided as input to 
-    # the function and assign the output to a variable. The output will be an object.
-    deals_data = json.loads(dumps(deals.find({"punk_id":id_selection})))
-
-    # Convert the json strings to dataframe
-    deals_df = pd.DataFrame(deals_data)
-    deals_df = deals_df.drop(columns=["_id"])
-
-    # Convert date to datetime
-    deals_df['date'] = pd.to_datetime(deals_df['date'])
-
-    # Re-index the dataframe
-    deals_df = deals_df.reset_index(drop=True)
     # Transaction types to filter
     filter_types = ["Sold", "Bid", "Transfer", "Claimed"]
 
@@ -269,30 +215,10 @@ def buildTransactionGraph (id_selection):
     # Call the function to Export Chart to AWS
     exportAWS(image_name)
 
-    return
 
-
-
-
-
-########################################
-# BUILD THE CRYPYO PUNK IMAGE
-########################################
-def buildPunkImage (id_selection):
-    # construct the connection string for Atlas
-    CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
-    # Create the connection client to Atlas
-    client = pymongo.MongoClient(CONNECTION_STRING) 
-    # indicate the database to access in Atlas
-    db = pymongo.database.Database(client,'crypto_punks_mdb')
-      
-    # assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
-    # the data from the database)
-    punks = pymongo.collection.Collection(db, 'crypto_punks_col')
-          
-    # search the database for the unique punk_id value provided as input to 
-    # the function and assign the output to a variable. The output will be an object.
-    punks_data = json.loads(dumps(punks.find({"punk_id":id_selection})))
+    ########################################
+    # BUILD THE CRYPYO PUNK IMAGE
+    ########################################
 
     # Obtain the image bitmap
     image_bitmap = punks_data[0]["image_bitmap"]
@@ -325,11 +251,6 @@ def buildPunkImage (id_selection):
 
 
 
-
-#########################################################################################
-# EXPORT TO AWS S3 BUCKET
-#########################################################################################
-
 def exportAWS (image_name):
 
     # Create AWS connection
@@ -346,12 +267,6 @@ def exportAWS (image_name):
     return
 
 
-
-
-#########################################################################################
-# BUILD OUR MAIN WEB PAGE
-#########################################################################################
-
 # Create the Flask instance
 app = Flask(__name__)
 
@@ -362,17 +277,18 @@ def index():
 
     # [FOR THE TIME BEING, PASS THE ID AS A FIXED VARIABLE. THIS VARIABLE SHOULD COME 
     # FROM THE INPUT FIELD IN THE HTML]
-    id_selection = "2202" #str(random.randrange(0,10000,1))
+    id_selection = "3600" #str(random.randrange(0,10000,1))
 
-    # Call the functions that build the Graphs
-    #_thread.start_new_thread ( buildPriceGraph (id_selection) )
-    #_thread.start_new_thread ( buildTransactionGraph (id_selection) )
-    #_thread.start_new_thread ( buildPunkImage (id_selection) )
+    # Call the function that builds the Graphs
+    buildGraphs (id_selection)
 
     # Call de function that builds the Punk Facts datafrane
-    punk_facts = punkFacts(id_selection)
+    #punkFacts(id_selection)
 
-    return render_template("index.html", punk_facts=punk_facts)
+    return render_template("index.html")
+
+
+
 
 
 

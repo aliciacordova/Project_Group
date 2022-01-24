@@ -25,9 +25,6 @@ from textwrap import wrap
 # Import AWS SDK
 import boto3
 
-# Import thread manager
-import _thread
-
 #########################################################################################
 
 
@@ -362,12 +359,12 @@ def index():
 
     # [FOR THE TIME BEING, PASS THE ID AS A FIXED VARIABLE. THIS VARIABLE SHOULD COME 
     # FROM THE INPUT FIELD IN THE HTML]
-    id_selection = "2202" #str(random.randrange(0,10000,1))
+    id_selection = str(random.randrange(0,10000,1))
 
     # Call the functions that build the Graphs
-    #_thread.start_new_thread ( buildPriceGraph (id_selection) )
-    #_thread.start_new_thread ( buildTransactionGraph (id_selection) )
-    #_thread.start_new_thread ( buildPunkImage (id_selection) )
+    buildPriceGraph (id_selection)
+    buildTransactionGraph (id_selection)
+    buildPunkImage (id_selection)
 
     # Call de function that builds the Punk Facts datafrane
     punk_facts = punkFacts(id_selection)
