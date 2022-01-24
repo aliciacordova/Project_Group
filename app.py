@@ -5,16 +5,15 @@ from flask_pymongo import PyMongo
 import pymongo
 from bson.json_util import dumps
 import json
-import plotly.express as px
+
 import pandas as pd
 import random
-from webdriver_manager.chrome import ChromeDriverManager
-from console_logging.console import Console
+
 
 # Import user and password
 from config import user, password 
 
-console = Console()
+
 
 # Create the Flask instance
 app = Flask(__name__)
@@ -127,8 +126,6 @@ def txn_history(id_selection):
 @app.route("/punk_facts/<id_selection>", methods=("POST", "GET"))
 def punkFacts(id_selection):
 
-    console.log(id_selection)
-    
     # construct the connection string for Atlas
     CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
     # Create the connection client to Atlas
@@ -139,8 +136,6 @@ def punkFacts(id_selection):
     # the data from the database)
     attributes = pymongo.collection.Collection(db, 'attributes_col')
     crypto_punks = pymongo.collection.Collection(db, 'crypto_punks_col')
-
-    console.log(attributes)
 
     # search the database for the unique punk_id value provided as input to 
     # the function and assign the output to a variable. The output will be an object.
@@ -183,8 +178,6 @@ def punkFacts(id_selection):
     
     # remove the index
     punk_facts_df = punk_facts_df.set_index("Attribute")
-
-    console.log(punk_facts_df)
     
     # test that the data is returned correctly [ELIMINATE THIS IN THE FINAL CODE]
     #return f'''
