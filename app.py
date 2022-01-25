@@ -17,16 +17,16 @@ import random
 from config import user, password, key_id, secret_access_key
 
 # Import plotting libraries
-import matplotlib.pyplot as plt
 import networkx as nx 
 import plotly.graph_objects as go
 from textwrap import wrap
+import matplotlib
+import matplotlib.pyplot as plt
+# Use matplotlib back-end
+matplotlib.use('Agg')
 
 # Import AWS SDK
 import boto3
-
-# Import thread manager
-import _thread
 
 #########################################################################################
 
@@ -98,231 +98,127 @@ def punkFacts(id_selection):
     return punk_facts
   
 
-
-
-
-#########################################################################################
+##############################################
 # BUILD THE CRYPTO PUNK GRAPHS
-#########################################################################################
+##############################################
 def buildGraphs (id_selection):
-    # construct the connection string for Atlas
+    
+    ########################################
+    # IMPORT THE DATA FROM MONGODB ATLAS
+    ########################################   
+    # 1. construct the connection string for Atlas
     CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
-    # Create the connection client to Atlas
+    # 2. Create the connection client to Atlas
     client = pymongo.MongoClient(CONNECTION_STRING) 
-    # indicate the database to access in Atlas
+    # 3. indicate the database to access in Atlas
     db = pymongo.database.Database(client,'crypto_punks_mdb')
-      
-    # assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
+    # 4. assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
     # the data from the database)
     deals = pymongo.collection.Collection(db, 'txn_history_col')
     punks = pymongo.collection.Collection(db, 'crypto_punks_col')
-          
-    # search the database for the unique punk_id value provided as input to 
+    # 5. search the database for the unique punk_id value provided as input to 
     # the function and assign the output to a variable. The output will be an object.
     deals_data = json.loads(dumps(deals.find({"punk_id":id_selection})))
     punks_data = json.loads(dumps(punks.find({"punk_id":id_selection})))
-
-    # Convert the json strings to dataframe
+    # 6. Convert the json strings to dataframe
     deals_df = pd.DataFrame(deals_data)
     deals_df = deals_df.drop(columns=["_id"])
-
-    # Convert date to datetime
+    # 7. Convert date to datetime
     deals_df['date'] = pd.to_datetime(deals_df['date'])
-
-    # Re-index the dataframe
+    # 8. Re-index the dataframe
     deals_df = deals_df.reset_index(drop=True)
 
 
-
-########################################
-# BUILD PRICE HISTORY CHART
-########################################
-def buildPriceGraph (id_selection):
-    # construct the connection string for Atlas
-    CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
-    # Create the connection client to Atlas
-    client = pymongo.MongoClient(CONNECTION_STRING) 
-    # indicate the database to access in Atlas
-    db = pymongo.database.Database(client,'crypto_punks_mdb')
-      
-    # assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
-    # the data from the database)
-    deals = pymongo.collection.Collection(db, 'txn_history_col')
-          
-    # search the database for the unique punk_id value provided as input to 
-    # the function and assign the output to a variable. The output will be an object.
-    deals_data = json.loads(dumps(deals.find({"punk_id":id_selection})))
-
-    # Convert the json strings to dataframe
-    deals_df = pd.DataFrame(deals_data)
-    deals_df = deals_df.drop(columns=["_id"])
-
-    # Convert date to datetime
-    deals_df['date'] = pd.to_datetime(deals_df['date'])
-
-    # Re-index the dataframe
-    deals_df = deals_df.reset_index(drop=True)
-    
-    # Display transaction and price history
+    ########################################
+    # BUILD PRICE HISTORY CHART
+    ########################################
+    # 1. Filter transaction types
     sold = deals_df[deals_df.txn_type == 'Sold'].groupby("date").agg({"eth": ["median"]}).reset_index("date")
     bid = deals_df[deals_df.txn_type == 'Bid'].groupby("date").agg({"eth": ["median"]}).reset_index("date")
     offered = deals_df[deals_df.txn_type == 'Offered'].groupby("date").agg({"eth": ["median"]}).reset_index("date")
-
+    # 2. Generate plot elements
     plt.figure(figsize=(10,5))
     plt.plot(sold['date'], sold['eth']['median'], label="Sold Median Eth")
     plt.plot(bid['date'], bid['eth']['median'], label="Bid Median Eth")
     plt.plot(offered['date'], offered['eth']['median'], label="Offered Median Eth")
-
     plt.legend()
     plt.xticks(rotation=60)
     plt.title("Median Eth Price Over Time for Punk ID")
-
-    # Save the image locally
+    # 3. Save the image locally
     image_name = "price_graph.png"
     plt.savefig("static/images/" + image_name)
-
-    # Call the function to Export Chart to AWS
+    # 4. Call the function to Export Chart to AWS
     exportAWS(image_name)
     
-    return
 
-
-
-
-########################################
-# BUILD THE TRANSACTION HISTORY CHART
-########################################
-def buildTransactionGraph (id_selection):
-    # construct the connection string for Atlas
-    CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
-    # Create the connection client to Atlas
-    client = pymongo.MongoClient(CONNECTION_STRING) 
-    # indicate the database to access in Atlas
-    db = pymongo.database.Database(client,'crypto_punks_mdb')
-      
-    # assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
-    # the data from the database)
-    deals = pymongo.collection.Collection(db, 'txn_history_col')
-          
-    # search the database for the unique punk_id value provided as input to 
-    # the function and assign the output to a variable. The output will be an object.
-    deals_data = json.loads(dumps(deals.find({"punk_id":id_selection})))
-
-    # Convert the json strings to dataframe
-    deals_df = pd.DataFrame(deals_data)
-    deals_df = deals_df.drop(columns=["_id"])
-
-    # Convert date to datetime
-    deals_df['date'] = pd.to_datetime(deals_df['date'])
-
-    # Re-index the dataframe
-    deals_df = deals_df.reset_index(drop=True)
-    # Transaction types to filter
+    ########################################
+    # BUILD THE TRANSACTION HISTORY CHART
+    ########################################
+    # 1. Filter the transaction types
     filter_types = ["Sold", "Bid", "Transfer", "Claimed"]
-
-    # Filter the dataframe for relevant transaction types
     deals_df = deals_df.loc[deals_df["txn_type"].isin(filter_types)]
-
-    # Sort by dates
+    # 2. Sort by dates
     deals_df = deals_df.sort_values(["date"], ascending=True)
-
-    # Re-index the dataframe
+    # 3. Re-index the dataframe
     deals_df = deals_df.reset_index(drop=True)
-
-    # Correct dataframe for nan's
+    # 4. Correct dataframe for nan's
     for row in range(len(deals_df)):
         if (deals_df.at[row,"from"] == "nan") & (deals_df.at[row,"txn_type"] == "Claimed"):
             deals_df.at[row,"from"] = "larvalabs"
         if (deals_df.at[row,"to"] == "nan") & (deals_df.at[row,"txn_type"] == "Bid"):
             deals_df.at[row,"to"] = deals_df.at[row-1,"to"]
-
-    # Build graph elements
+    # 5. Build graph elements
     plt.figure(figsize=(8,8))
-
     G = nx.MultiDiGraph()
-
-    # Create an empty dictionary for the edge labels
+    # 5.1 Create the network edge labels and nodes
     mylabels={}
-
     for row in range(len(deals_df)):
-        
         # Add to-from nodes
         G.add_node(deals_df.at[row,"from"])
-        
         # Add edges to the nodes
         G.add_edge(deals_df.at[row,"from"],deals_df.at[row,"to"], color="red", weight=deals_df.at[row,"eth"], size=deals_df.at[row,"eth"])
-        
         # Add the transaction type as edge label
         mylabels[deals_df.at[row,"from"],deals_df.at[row,"to"]]=deals_df.at[row,"txn_type"]
-
+    # 5.2 define the graph type as a circular network
     pos=nx.circular_layout(G)
-
+    # 5.3 Give the node a size based on number of connections (degrees)
     d = dict(G.degree)
-
     nx.draw(G, pos, node_size = [v**2*200 for v in d.values()], node_color='turquoise', edge_color="cornflowerblue", arrowsize=20, width=3, with_labels=True, font_weight='bold')
     nx.draw_networkx_edge_labels(G, pos, mylabels, label_pos=.5)
-
-    # Save the image locally
+    # 6. Save the image locally
     image_name = "network_graph.png"
     plt.savefig("static/images/" + image_name)
-
-    # Call the function to Export Chart to AWS
+    # 7. Call the function to Export Chart to AWS
     exportAWS(image_name)
 
-    return
 
+    ########################################
+    # BUILD THE CRYPYO PUNK IMAGE
+    ########################################
 
-
-
-
-########################################
-# BUILD THE CRYPYO PUNK IMAGE
-########################################
-def buildPunkImage (id_selection):
-    # construct the connection string for Atlas
-    CONNECTION_STRING = "mongodb+srv://"+ user + ":" + password +"@cluster0.wddnt.mongodb.net/crypto_punks_mdb?retryWrites=true&w=majority"
-    # Create the connection client to Atlas
-    client = pymongo.MongoClient(CONNECTION_STRING) 
-    # indicate the database to access in Atlas
-    db = pymongo.database.Database(client,'crypto_punks_mdb')
-      
-    # assign the connection to the database and collection to a variable (i.e. this still is not 'reading' 
-    # the data from the database)
-    punks = pymongo.collection.Collection(db, 'crypto_punks_col')
-          
-    # search the database for the unique punk_id value provided as input to 
-    # the function and assign the output to a variable. The output will be an object.
-    punks_data = json.loads(dumps(punks.find({"punk_id":id_selection})))
-
-    # Obtain the image bitmap
+    # 1. Obtain the image bitmap
     image_bitmap = punks_data[0]["image_bitmap"]
-
+    # 2. Build the image from the bitmap
     plt.figure(figsize=(7,7))
     img = plt.imshow(image_bitmap)
-    
-    # Remove axes tick and tickmarks
+    # 3. Remove axes tick and tickmarks
     ax = plt.gca()
     ax.axes.xaxis.set_ticks([])
     ax.axes.yaxis.set_ticks([])
-    
-    # Add a title
+    # 4. Add a title
     plt.title("Crypto Punk "+str(id_selection), fontsize=40)
-    
-    # Add description of features
+    # 5. Add description of features
     punk_type = punks_data[0]["type"]
     punk_accessories = str(punks_data[0]["accessories"])
     wrapped_label = punk_type+"\n"+("\n".join(wrap(punk_accessories,30)))
     plt.xlabel(wrapped_label, fontsize=25)
-
-    # Save the image locally
+    # 6. Save the image locally
     image_name = "crypto_punk.png"
     plt.savefig("static/images/" + image_name)
-
-    # Call the function to Export Chart to AWS
+    # 7. Call the function to Export Chart to AWS
     exportAWS(image_name)
 
     return
-
 
 
 
@@ -360,14 +256,11 @@ app = Flask(__name__)
 def index():
     pagetitle = "HomePage"
 
-    # [FOR THE TIME BEING, PASS THE ID AS A FIXED VARIABLE. THIS VARIABLE SHOULD COME 
-    # FROM THE INPUT FIELD IN THE HTML]
-    id_selection = "2202" #str(random.randrange(0,10000,1))
+    # Generate a random PunK ID
+    id_selection = str(random.randrange(0,10000,1))
 
-    # Call the functions that build the Graphs
-    #_thread.start_new_thread ( buildPriceGraph (id_selection) )
-    #_thread.start_new_thread ( buildTransactionGraph (id_selection) )
-    #_thread.start_new_thread ( buildPunkImage (id_selection) )
+    # Call the function that builds the graphs
+    buildGraphs (id_selection)
 
     # Call de function that builds the Punk Facts datafrane
     punk_facts = punkFacts(id_selection)

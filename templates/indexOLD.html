@@ -34,9 +34,13 @@
           <div class="col-sm-3" style="background-color:lavender;">.col-sm-3
             <div><br><br></div>
                 <div class="well">
-                    <h5 style="color:rgb(5, 22, 24);">Generate a random Punk ID</h5>    
+                    <h5 style="color:rgb(5, 22, 24);">Enter a Punk ID from 0 to 10,000</h5>    
                     <p>
-                        <button onClick="window.location.reload();">GO</button>
+                        <form method="POST" action="/" role="form" , name="petform">
+                            <label for="fid" style="color:rgb(5, 22, 24);" >Crypto Punk ID:</label><br>
+                            <input type="text" id="fid" name="fid" style="color:rgb(5, 22, 24);" value = "range 0 to 10000"><br><br>
+                            <input style="color:rgb(5, 22, 24);" type="submit" value="Submit">
+                        </form>
                     </p>    
 
                 </div>
