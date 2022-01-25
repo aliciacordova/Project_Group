@@ -148,7 +148,7 @@ def buildGraphs (id_selection):
     image_name = "price_graph.png"
     plt.savefig("static/images/" + image_name)
     # 4. Call the function to Export Chart to AWS
-    exportAWS(image_name,image_name)
+    exportAWS(image_name, image_name)
     
 
     ########################################
@@ -189,7 +189,7 @@ def buildGraphs (id_selection):
     image_name = "network_graph.png"
     plt.savefig("static/images/" + image_name)
     # 7. Call the function to Export Chart to AWS
-    exportAWS(image_name,image_name)
+    exportAWS(image_name, image_name)
 
 
     ########################################
@@ -215,14 +215,14 @@ def buildGraphs (id_selection):
     image_name = "crypto_punk.png"
     plt.savefig("static/images/" + image_name)
     # 7. Call the function to Export Chart to AWS
-    exportAWS(image_name,image_name)
+    exportAWS(image_name, image_name)
 
 
     ########################################
     # BUILD THE TYPE PREDICTION IMAGE
     ########################################
     # 1. Get the type prediction
-    type_PRED = punk_type = punks_data[0]["type_PRED"]
+    type_PRED = punks_data[0]["type_PRED"]
     if type_PRED == '0':
         image_name = "male.png"
     elif type_PRED == '1':
@@ -231,21 +231,21 @@ def buildGraphs (id_selection):
         image_name = "other.png"
     # 2. Call the function to Export Chart to AWS
     new_name = "punk_type_PRED.png"
-    exportAWS(image_name,new_name)
+    exportAWS(image_name, new_name)
 
 
     ########################################
     # BUILD THE GLASSES PREDICTION IMAGE
     ########################################
     # 1. Get the glasses prediction
-    type_PRED = punk_type = punks_data[0]["glasses_PRED"]
-    if type_PRED == '0':
+    glasses_PRED = punks_data[0]["glasses_PRED"]
+    if glasses_PRED == '0':
         image_name = "noglasses.png"
     else:
         image_name = "glasses.png"
     # 2. Call the function to Export Chart to AWS
     new_name = "punk_glasses_PRED.png"
-    exportAWS(image_name,new_name)
+    exportAWS(image_name, new_name)
 
 
     return
@@ -256,7 +256,7 @@ def buildGraphs (id_selection):
 # EXPORT TO AWS S3 BUCKET
 #########################################################################################
 
-def exportAWS (image_name,new_name):
+def exportAWS (image_name, new_name):
 
     # Create AWS connection
     s3 = boto3.resource('s3', aws_access_key_id=key_id, aws_secret_access_key=secret_access_key)
