@@ -44,11 +44,17 @@ We decide to create 2 models. One classification model to determines which type 
 
 ### ✓ Database
 
-Team members present a provisional database that stands in for the final database and accomplishes the following:
+Our database consists of a MongoDB database, which has been loaded to the cloud using MongoDB Atlas cloud hosting service.
 
-✓ Sample data that mimics the expected final database structure or schema 
+The database, crypto_punks_mdb, containes 3 collections:
+   - crypto_punks_col with 10,000 documents each containing 10 fields.
+   - traders_col with 132526 documents each containing 9 fields.
+   - txn_history_col with 167,492 documents each containing 12 fields.
 
-✓ Draft machine learning module is connected to the provisional database
+The collections can be cross-referenced using the field 'punk_id' as key.
+
+The database and collections can be visualized using MongoDB Compass by establishing a connection with MongoDB Atlas through a secure URL.
+
 
 ### ✓ Presentation
 
@@ -56,45 +62,7 @@ Our presentation can be found here Google Slide Presentation https://docs.google
 
 ### ✓ Dashboard
 
-The link to the dashboard repository is Link Dashboard Repo.
-
-DASHBOARD BLUEPRINT
-
 Thus far, we have obtained the information we need to present in a dashboard. We built a successful machine learning model that can predict the type of CryptoPunks, as well as predict whether it has glasses or not. Now we need to visualize the prediction data for each CryptoPunk.
 
 Specifically, the user should be able to select a CryptoPunk and identify what type it is and whether has glasses or not. This way, the user will be able to interact with the data and have a better understanding of it. 
 
-What we need to create:
-
-This dashboard consists of the following materials:
-Design
-
-![htlm1](https://user-images.githubusercontent.com/87447639/149423340-df51b870-6a79-4d77-9c39-3494b36233f9.PNG)
-
-![htlm2](https://user-images.githubusercontent.com/87447639/149423342-8f0f8623-d892-4776-bdba-f910aab5b6eb.PNG)
-
-Drop Down Menu
--	Create a drop down menu so the user can select a CryptoPunk.
--	Create an interactive button option to obtain more info about that Crypto Punk. When the user click that button a second page will be display with a menu to show “Graph Price”, “Accessories attributes” and “History Transaction”.  
-Crypto Punk Image
--	Display the image of the selected cryptopunk
-o	Visual
- 
-Crypto Punk Table Information
--	Create a table containing basic information about the selected cryptopunk
-
-Glasses Prediction
--	Option A: Create a Red and Green button group that changes the intensity of the color depending whether the CryptoPunk has glasses or not.  Using the opacity property, reduce the opacity of red when the option is YES or reduce the opacity of green when the option is NO. 
-Resource: https://www.w3schools.com/css/css3_buttons.asp 
-
-Type Prediction
--	Option A: Create an image box that changes the icon depending on the prediction. Display de Female Icon if its female, Male Icon if its Male or Other Icon if its other. 
-o	Recources: 
-o	Female Icon https://www.toptal.com/designers/htmlarrows/symbols/female-sign/
-o	Male Icon https://www.toptal.com/designers/htmlarrows/symbols/male-sign/
-o	None Icon https://www.toptal.com/designers/htmlarrows/punctuation/non-breaking-hyphen/ 
- 
--	Option B: Create a Gauge chart that places the needle according to the type
-                              
-
-## ✓ Dashboard Live Demo (Heroku)
