@@ -59,9 +59,10 @@ The confusion matrix of the model are:
 
 ![confusionmatrix](https://user-images.githubusercontent.com/87447639/151213205-8481797b-eab8-4478-9d85-1860cb03c1a3.PNG)
 
-
+Binary Model
 ![binarymodel](https://user-images.githubusercontent.com/87447639/151262580-ebf44de9-7340-4b24-8444-a6195171bcfc.PNG)
 
+Classification Model
 ![clasificationmodel](https://user-images.githubusercontent.com/87447639/151262587-fcd003dd-8769-40e6-9e25-af9a51351331.PNG)
 
 
