@@ -85,13 +85,14 @@ def punkFacts(id_selection):
       punk_facts_df.at[row,"Rarity Score"] = 10000 / punk_facts_df.at[row,"counts"]
       
     # rename the "counts" column
-    punk_facts_df.rename(columns = {"counts":"Punks that Share this Attribute"}, inplace = True)
+    punk_facts_df.rename(columns = {"counts":"Punks With this Attribute"}, inplace = True)
     
     # remove the index
     punk_facts_df = punk_facts_df.set_index("Attribute")
     
     # Convert the dataframe to html and assign it to a variable
-    punk_facts = punk_facts_df.to_html()
+    # Include Bootstrap table formatting
+    punk_facts = punk_facts_df.to_html(classes='table table-striped table-hover table-condensed text-center', justify='center')
 
     # Return the dataframe object to a copy of the index html, and point
     # the variable to the html container name where it will be displayed
@@ -102,7 +103,8 @@ def punkFacts(id_selection):
 # BUILD THE CRYPTO PUNK GRAPHS
 ##############################################
 def buildGraphs (id_selection):
-    
+
+
     ########################################
     # IMPORT THE DATA FROM MONGODB ATLAS
     ########################################   
@@ -130,6 +132,36 @@ def buildGraphs (id_selection):
 
 
     ########################################
+    # BUILD THE TYPE PREDICTION IMAGE
+    ########################################
+    # 1. Get the type prediction
+    type_PRED = punks_data[0]["type_PRED"]
+    if type_PRED == '0':
+        image_name = "male.png"
+    elif type_PRED == '1':
+        image_name = "female.png"
+    else:
+        image_name = "other.png"
+    # 2. Call the function to Export Chart to AWS
+    new_name = "punk_type_PRED.png"
+    exportAWS(image_name, new_name)
+
+
+    ########################################
+    # BUILD THE GLASSES PREDICTION IMAGE
+    ########################################
+    # 1. Get the glasses prediction
+    glasses_PRED = punks_data[0]["glasses_PRED"]
+    if glasses_PRED == '0':
+        image_name = "noglasses.png"
+    else:
+        image_name = "glasses.png"
+    # 2. Call the function to Export Chart to AWS
+    new_name = "punk_glasses_PRED.png"
+    exportAWS(image_name, new_name)
+
+
+    ########################################
     # BUILD PRICE HISTORY CHART
     ########################################
     # 1. Filter transaction types
@@ -137,10 +169,10 @@ def buildGraphs (id_selection):
     bid = deals_df[deals_df.txn_type == 'Bid'].groupby("date").agg({"eth": ["median"]}).reset_index("date")
     offered = deals_df[deals_df.txn_type == 'Offered'].groupby("date").agg({"eth": ["median"]}).reset_index("date")
     # 2. Generate plot elements
-    plt.figure(figsize=(10,5))
-    plt.plot(sold['date'], sold['eth']['median'], label="Sold Median Eth")
-    plt.plot(bid['date'], bid['eth']['median'], label="Bid Median Eth")
-    plt.plot(offered['date'], offered['eth']['median'], label="Offered Median Eth")
+    plt.figure(figsize=(8,8))
+    plt.plot(sold['date'], sold['eth']['median'], label="Sold Median Eth", linewidth=8, color='k')
+    plt.plot(bid['date'], bid['eth']['median'], label="Bid Median Eth", linewidth=6, color='g')
+    plt.plot(offered['date'], offered['eth']['median'], label="Offered Median Eth", linewidth=4, color='tab:orange')
     plt.legend()
     plt.xticks(rotation=60)
     plt.title("Median Eth Price Over Time for Punk ID")
@@ -198,7 +230,7 @@ def buildGraphs (id_selection):
     # 1. Obtain the image bitmap
     image_bitmap = punks_data[0]["image_bitmap"]
     # 2. Build the image from the bitmap
-    plt.figure(figsize=(7,7))
+    plt.figure(figsize=(7,8))
     img = plt.imshow(image_bitmap)
     # 3. Remove axes tick and tickmarks
     ax = plt.gca()
@@ -216,36 +248,6 @@ def buildGraphs (id_selection):
     plt.savefig("static/images/" + image_name)
     # 7. Call the function to Export Chart to AWS
     exportAWS(image_name, image_name)
-
-
-    ########################################
-    # BUILD THE TYPE PREDICTION IMAGE
-    ########################################
-    # 1. Get the type prediction
-    type_PRED = punks_data[0]["type_PRED"]
-    if type_PRED == '0':
-        image_name = "male.png"
-    elif type_PRED == '1':
-        image_name = "female.png"
-    else:
-        image_name = "other.png"
-    # 2. Call the function to Export Chart to AWS
-    new_name = "punk_type_PRED.png"
-    exportAWS(image_name, new_name)
-
-
-    ########################################
-    # BUILD THE GLASSES PREDICTION IMAGE
-    ########################################
-    # 1. Get the glasses prediction
-    glasses_PRED = punks_data[0]["glasses_PRED"]
-    if glasses_PRED == '0':
-        image_name = "noglasses.png"
-    else:
-        image_name = "glasses.png"
-    # 2. Call the function to Export Chart to AWS
-    new_name = "punk_glasses_PRED.png"
-    exportAWS(image_name, new_name)
 
 
     return
