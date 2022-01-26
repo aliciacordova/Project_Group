@@ -55,6 +55,9 @@ For one of the models, the output label is 'type', represented as a one_hot_enco
 
 For the second model, the output label is 'glasses_ML'
 
+The confusion matrix of the model are: 
+
+![confusionmatrix](https://user-images.githubusercontent.com/87447639/151213205-8481797b-eab8-4478-9d85-1860cb03c1a3.PNG)
 
 
 ## Database
@@ -105,10 +108,6 @@ The database will be accessed by our visualization dashboard through a connectio
 Our presentation can be found here Google Slide Presentation https://docs.google.com/presentation/d/17QrwkucoQluYAyOd0sKMI5KkpIkx8blE9acwNgYu1Bc/edit#slide=id.p
 
 ### ✓ Dashboard
-
-The link to the dashboard repository is Link Dashboard Repo.
-
-DASHBOARD BLUEPRINT
 
 Thus far, we have obtained the information we need to present in a dashboard. We built a successful machine learning model that can predict the type of CryptoPunks, as well as predict whether it has glasses or not. Now we need to visualize the prediction data for each CryptoPunk.
 
