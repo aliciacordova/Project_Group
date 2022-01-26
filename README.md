@@ -114,37 +114,4 @@ Thus far, we have obtained the information we need to present in a dashboard. We
 
 Specifically, the user should be able to select a CryptoPunk and identify what type it is and whether has glasses or not. This way, the user will be able to interact with the data and have a better understanding of it. 
 
-What we need to create:
-
-This dashboard consists of the following materials:
-Design
-
-![htlm1](https://user-images.githubusercontent.com/87447639/149423340-df51b870-6a79-4d77-9c39-3494b36233f9.PNG)
-
-![htlm2](https://user-images.githubusercontent.com/87447639/149423342-8f0f8623-d892-4776-bdba-f910aab5b6eb.PNG)
-
-Drop Down Menu
--	Create a drop down menu so the user can select a CryptoPunk.
--	Create an interactive button option to obtain more info about that Crypto Punk. When the user click that button a second page will be display with a menu to show “Graph Price”, “Accessories attributes” and “History Transaction”.  
-Crypto Punk Image
--	Display the image of the selected cryptopunk
-o	Visual
- 
-Crypto Punk Table Information
--	Create a table containing basic information about the selected cryptopunk
-
-Glasses Prediction
--	Option A: Create a Red and Green button group that changes the intensity of the color depending whether the CryptoPunk has glasses or not.  Using the opacity property, reduce the opacity of red when the option is YES or reduce the opacity of green when the option is NO. 
-Resource: https://www.w3schools.com/css/css3_buttons.asp 
-
-Type Prediction
--	Option A: Create an image box that changes the icon depending on the prediction. Display de Female Icon if its female, Male Icon if its Male or Other Icon if its other. 
-o	Recources: 
-o	Female Icon https://www.toptal.com/designers/htmlarrows/symbols/female-sign/
-o	Male Icon https://www.toptal.com/designers/htmlarrows/symbols/male-sign/
-o	None Icon https://www.toptal.com/designers/htmlarrows/punctuation/non-breaking-hyphen/ 
- 
--	Option B: Create a Gauge chart that places the needle according to the type
-                              
-
-## ✓ Dashboard Live Demo (heroku)
+![Visualization_Screenshot](https://user-images.githubusercontent.com/87447639/151211870-627a617b-7d5f-48bc-8a53-1c0d40e5e4ab.png)
