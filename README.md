@@ -119,6 +119,10 @@ The database is accessed by our visualization dashboard through a connection str
 
 Our presentation can be found here Google Slide Presentation https://docs.google.com/presentation/d/17QrwkucoQluYAyOd0sKMI5KkpIkx8blE9acwNgYu1Bc/edit#slide=id.p
 
+### ✓ Requirements
+
+A list of the coding packages use for our project is included in the repository under *requirements.txt* file.
+
 ### ✓ Dashboard
 
 Our dashboard consists of an *html* webpage connected to a *Python* application, *app.py*. The dashboard provides the viewer the option to generate a random Crypo Punk id through the use of an interactive button. Once generated, the image of the Crypto Punk is updated, a table of facts is provided on the Crypo Punk including how many other Crypto Punks share the same attributes and the rarity score of these attributes. The dashboard also makes a prediction on the *type* and if the accessories include glasses. Finally, the dashboard presents a price history chart for the Crypto Punk, as well as a network graph that illustrates it's trading history. The data displayed on the dashboard is processed from reading the *MongoDB* data available in the *Atlas* cluster, while the images are processed, exported to the cloud using *Amazon Web Services* *S3* bucket, and fed to the dashboard via *url* links.
