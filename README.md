@@ -68,11 +68,6 @@ Classification Model
 ![clasificationmodel](https://user-images.githubusercontent.com/87447639/151262587-fcd003dd-8769-40e6-9e25-af9a51351331.PNG)
 
 
-
-INSERT ACCURACY PRINTOUT FOR EACH MODEL
-
-
-
 ## Database
 
 Our database consists of a *MongoDB* database, which has been loaded to the cloud using *MongoDB Atlas* cloud hosting service.
