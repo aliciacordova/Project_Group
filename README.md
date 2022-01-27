@@ -99,8 +99,7 @@ Our ETL process entailed reading the *JSON* file and creating utilitary datafram
 
 One dataframe extracts the unique Crypto Punk *'punk_id'*, their unique *'type'* and the *'accessories'* associated with each individual Crypto Punk. By analyzing this data, we determined that several *'types'* were underrepresented and would pose a challenge for the accuracy of our Machine Learning predictions. These *'types'*, which include *'Ape'*, *'Alien'* and *'Zombie'*, where grouped into a class *'Other'*.
 
-
-INSERT TABLE WITH TYPE DISTRIBUTION
+![image (1)](https://user-images.githubusercontent.com/87447639/151267692-5c311f6f-f9f7-4c56-90aa-7d7b379ef304.png)
 
 
 Another dataframe decomposes all the unique *'accessories'* present in the collection, and establishes the count of Crypto Punks sharing this accessory. We also used this dataframe to group *'accessories'* into broad classes (for example, beards, headgear, glasses) in order to select a feature with variable visual representation that could lend itself for machine learning recognition.
