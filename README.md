@@ -75,7 +75,7 @@ Our database consists of a *MongoDB* database, which has been loaded to the clou
 The database, *crypto_punks_mdb*, containes 3 main collections:
 
 - *crypto_punks_col* with 10,000 documents each containing 10 fields.
-- *traders_col* with 132526 documents each containing 9 fields.
+- *traders_col* with 132,526 documents each containing 9 fields.
 - *txn_history_col* with 167,492 documents each containing 12 fields.
 
 The collections can be cross-referenced using the field *'punk_id'* as key.
