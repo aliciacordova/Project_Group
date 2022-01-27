@@ -1,0 +1,7 @@
+body {
+    #color: #F7F7F7;}
+.jumbotron {    
+    background-image: url("https://www.hollywoodreporter.com/wp-content/uploads/2021/08/manyCryptopunks-H-2021.jpg?crop=0px%2C0px%2C1296px%2C725px&resize=681%2C383.jpg");   
+    background-repeat: repeat;   
+    text-align: center;}
+.button {padding: 100px x 50px; text-align: center; font-size: 100px;}

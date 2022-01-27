@@ -1,15 +1,15 @@
 # CRYPTO PUNKS Machine Learning Project
 
-### ✓ Selected topic: 
-Explore the surging world of  NFT's, focused on a collection of 10,000 digital assets known as Crypto Punks. The aim is to analize the associated *PNG* images using Machine Learning and establish which graphical features and attributes determine either the type of Crypto Punk (*'Male'*, *'Female'*, and *'Other'* -*'Zombie'*, *'Ape'* or *'Alien'*-) or if the Crypto Punk has glasses (*'3D Glasses'*, *'Big Shades'*, *'Classic Shades'*, *'Horned Rim Glasses'*, *'Nerd Glasses'*, *'Regular Glasses'*, *'Small Shades'*,  *'VR'* and *'Welding Goggles'*). 
+### ✓ Topic Selection
+Explore the surging world of  NFT's, focused on a collection of 10,000 digital assets known as Crypto Punks. The aim is to analize the associated *PNG* images using Machine Learning and establish which graphical features and attributes determine either the type of Crypto Punk (*'Male'*, *'Female'*, or *'Other'* -*'Zombie'*, *'Ape'* or *'Alien'*-) or if the Crypto Punk has glasses (*'3D Glasses'*, *'Big Shades'*, *'Classic Shades'*, *'Horned Rim Glasses'*, *'Nerd Glasses'*, *'Regular Glasses'*, *'Small Shades'*,  *'VR'* and *'Welding Goggles'*). 
 
-### ✓ Reason why they selected their topic: 
-With this project we seek to apply our data analytics skills using Machine Learning while expanding our knowledge-base to include an image classification model, as this is an increasingly relevant field in the use of Machine Learning. We also wanted to further our skills in using *MongoDB*, a non-relational database.
+### ✓ Reason for Topic Selection
+With this project we seek to apply our data analytics skills using Machine Learning while expanding our knowledge-base to include an image classification model, as this is an increasingly relevant field in the use of Machine Learning. We also wanted to further our skills in using *MongoDB*, a non-relational database and cloud resource deployment using *Amazon Web Services*.
 
-### ✓ Description of their source of data: 
+### ✓ Description of Data Source
 CryptoPunks were created by Larva Labs in 2017. They are the first NFT series to catch popular interest, and one of the most actively traded (https://www.larvalabs.com/cryptopunks). 
 
-The dataset consists of a *JSON* file with all CryptoPunk transactions and the relevant attributes of the 10,000 CryptoPunks such as type (*'Male'*, *'Female'*, *'Zombie'*, *'Ape'* or *'Alien'*) and any of 87 different accessories (such as beards, glasses, hair, etc.). 
+The dataset consists of a *JSON* file with all Crypto Punk blockchain transactions as well as the relevant attributes of the 10,000 CryptoPunks such as type (*'Male'*, *'Female'*, *'Zombie'*, *'Ape'* or *'Alien'*) and any of 87 different accessories (such as beards, glasses, hair, etc.). 
 
 The dataset is available in Kaggle at:
 
@@ -19,67 +19,83 @@ A second dataset contains a folder with individual *.png* image files for each o
 
 https://www.kaggle.com/tunguz/cryptopunks?select=imgs
 
-### ✓ Questions they hope to answer with the data
+### ✓ What We Hope to Answer:
 
-Our project runs two models to predict, given an image file, the attributes of the image. The first model predicts which type of CryptoPunks the image represents, while the second model predicts if the image has glasses or not. 
+Our project runs two models. These are used to predict, given an image file, the attributes of the image. The first model predicts which type of CryptoPunks the image represents, while the second model predicts if the image has glasses or not. 
 
 
-### ✓ Description of the communication protocols
+### ✓ Description of Team Communication Protocols
 
-- The team has been in constant communication through a dedicated *Slack* channel and *Zoom* virtual calls.
-- The team also shares a *Google Docs* folder for relevant documents, such as interesting articles on image processing techniques, presentation drafts and project rubrics. 
-- Each member has been working in their own branch, uploading files. 
-- Tasks are divided among the team members according to the different roles (triangle, circle, square), but also according to team member expertise.
+- The team kept constant communication through a dedicated *Slack* channel and *Zoom* virtual calls.
+- The team also shared a *Google Docs* folder for relevant documents, such as interesting articles on image processing techniques, presentation drafts and project rubrics. 
+- Each member uploaded working files to their own branch, with final code merged to a main branch. 
+- Tasks were divided among the team members according to the different roles (triangle, circle, square), but also according to team member expertise.
 
 ## Machine Learning Model
 
-The preliminary data includes columns that describe the information refer to 10.000 Crypto Punks. 
+The preliminary data included column fields describing the transactional information for the 10,000 Crypto Punk collection, including fields describing the relevant Crypto Punk characteristics (*id*, *type* and *accessories*). 
 
-After connecting to the database, we printed out the header for each column to see all of the features available. From that list, we chose the features we need to create the Machine Learning Model.
+After exploring the available data, we chose the features we wanted to base the Machine Learning Model on.
 
-We decide to create 2 models. One classification model to determines which type if Crypto Punks the image is. And one binary model to determine is the Crypto Punk image has glasses or not. For both models we did the same process:
+We decide to create 2 models: one classification model to determines which *type* of Crypto Punk the image represented, and a second binary model to determine if the Crypto Punk image had glasses or not. For both models we followed the same process:
 
-The data was split into training and test data using the train_test_split function. We used the default 75% to 25% split.
+* The data was split into training and test data using the train_test_split function. We used the default 75% to 25% split.
 
-The project employs a Convolutional - Neural Network (CNN) model.
+* The data was fed to a Convolutional - Neural Network (CNN) Model made up of several layers.
 
-After careful analyzing, we used the sequential models and Neural network model to make predictions. After adding some layers using Relu, Sofmax (for Classification model) and Sigmoid (for Binary Model), the accuracy rate for both model was 100%. This means our models accurately predict the outcome of all the Crypto Punk images.
+Some of these layers use Relu, Sofmax (for Classification model) and Sigmoid (for Binary Model), the accuracy rate for both model was 100%. This means our models accurately predicted the outcome of nearly all the Crypto Punk images.
 
-The model operates several layers as presented in the image below:
+The image below provides a better understanding of the layers included in the model's construction:
 ![ConvNN_Image](https://user-images.githubusercontent.com/87447639/149681824-c98a2e0d-75c0-4c75-8516-46efc8be58a7.png)
 
 
-The input data for the models is a list of numpy arrays of dimension 24 x 24 x 4. These arrays represent the digital information that conforms the image. The original images are 24 pixels by 24 pixels, and the arrays express the value of each pixel as a number between 0 and 255, representing the RGB color of the pixel. Before providing the input to the models, the arrays are normalized by dividing the values by 255, so that they fall in a range between 0 and 1.
+The input data for the models is a list of numpy arrays of dimension 24 x 24 x 4. These arrays represent the digital information that corresponds to the image. The original images are 24 pixels by 24 pixels, and the arrays express the value of each pixel as a number between 0 and 255, representing the RGB color of the pixel. Before providing the input to the models, the arrays were normalized by dividing the values by 255, so that they would fall in a range between 0 and 1.
 
-For one of the models, the output label is 'type', represented as a one_hot_encoded field.
+For the Classification model, the output label is *'type'*, represented as a one_hot_encoded field.
 
-For the second model, the output label is 'glasses_ML'
+For the Binary model, the output label is 'glasses_ML'
 
+The following tables present the confusion matrix after running the model: 
+
+![confusionmatrix](https://user-images.githubusercontent.com/87447639/151213205-8481797b-eab8-4478-9d85-1860cb03c1a3.PNG)
+
+Binary Model
+
+![binarymodel](https://user-images.githubusercontent.com/87447639/151262580-ebf44de9-7340-4b24-8444-a6195171bcfc.PNG)
+
+Classification Model
+
+![clasificationmodel](https://user-images.githubusercontent.com/87447639/151262587-fcd003dd-8769-40e6-9e25-af9a51351331.PNG)
 
 
 ## Database
 
 Our database consists of a *MongoDB* database, which has been loaded to the cloud using *MongoDB Atlas* cloud hosting service.
 
-The database, *crypto_punks_mdb*, containes 3 collections:
+The database, *crypto_punks_mdb*, containes 3 main collections:
 
 - *crypto_punks_col* with 10,000 documents each containing 10 fields.
-- *traders_col* with 132526 documents each containing 9 fields.
+- *traders_col* with 132,526 documents each containing 9 fields.
 - *txn_history_col* with 167,492 documents each containing 12 fields.
 
 The collections can be cross-referenced using the field *'punk_id'* as key.
 
+A fourth collection, *attributes_col*, represents a dictionary of attributes and their relative frequencies in the Crypto Punk collection.
+
 The database and collections can be visualized using *MongoDB Compass* by establishing a connection with *MongoDB Atlas* through a secure URL.
 
-## Description of the Data Exploration Phase
+## Description of Data Exploration Phase
 
 ![Database_ERD](https://user-images.githubusercontent.com/87447639/149681985-a86e2efd-dbc7-48c5-9e67-369967f2df83.png)
 
-Two datasets where available for our analysis. One contains all blockchain transactions since the minting of the Crypto Punk NFT collection, and is available as a JSON file in Kaggle. The other associated data set is a collection of 10,000 *png* files also available in Kaggle, containing the individual images of each Crypo Punk.
+Two datasets where available for our analysis. One contains all blockchain transactions since the minting of the Crypto Punk NFT collection, and is available as a *JSON* file in Kaggle. The other associated data set is a collection of 10,000 *png* files also available in Kaggle, containing the individual images of each Crypo Punk.
 
-Our ETL process entailed reading the JSON file and creating utilitary dataframes for the different elements of our analysis.
+Our ETL process entailed reading the *JSON* file and creating utilitary dataframes for the different elements of our analysis.
 
 One dataframe extracts the unique Crypto Punk *'punk_id'*, their unique *'type'* and the *'accessories'* associated with each individual Crypto Punk. By analyzing this data, we determined that several *'types'* were underrepresented and would pose a challenge for the accuracy of our Machine Learning predictions. These *'types'*, which include *'Ape'*, *'Alien'* and *'Zombie'*, where grouped into a class *'Other'*.
+
+![image (1)](https://user-images.githubusercontent.com/87447639/151267692-5c311f6f-f9f7-4c56-90aa-7d7b379ef304.png)
+
 
 Another dataframe decomposes all the unique *'accessories'* present in the collection, and establishes the count of Crypto Punks sharing this accessory. We also used this dataframe to group *'accessories'* into broad classes (for example, beards, headgear, glasses) in order to select a feature with variable visual representation that could lend itself for machine learning recognition.
 
@@ -95,56 +111,22 @@ All of these dataframes where exported as *csv* files to our repository *Data* f
 
 In addition to the ETL process notebook, another notebook converts each of the *csv* files to *json* format. These are stored in the *JSON_datafiles* subfolder of our *Data* repository folder. It also consolidates the *csv* files into 3 collections that are stored in our *MongoDB* local host.
 
-A third ETL notebook reads the *csv* files, consolidates them into the three collections, 
-but this time exports them to a *MongoDB Atlas* cluster in the cloud.
+A third ETL notebook reads the *csv* files, consolidates them into the three collections, but this time exports them to a *MongoDB Atlas* cluster in the cloud.
 
-The database will be accessed by our visualization dashboard through a connection string pointing to the secure *MongoDB Atlas* url associated with our database.
+The database is accessed by our visualization dashboard through a connection string pointing to the secure *MongoDB Atlas* url associated with our database.
 
 ### ✓ Presentation
 
 Our presentation can be found here Google Slide Presentation https://docs.google.com/presentation/d/17QrwkucoQluYAyOd0sKMI5KkpIkx8blE9acwNgYu1Bc/edit#slide=id.p
 
+### ✓ Requirements
+
+A list of the coding packages use for our project is included in the repository under *requirements.txt* file.
+
 ### ✓ Dashboard
 
-The link to the dashboard repository is Link Dashboard Repo.
+Our dashboard consists of an *html* webpage connected to a *Python* application, *app.py*. The dashboard provides the viewer the option to generate a random Crypo Punk id through the use of an interactive button. Once generated, the image of the Crypto Punk is updated, a table of facts is provided on the Crypo Punk including how many other Crypto Punks share the same attributes and the rarity score of these attributes. The dashboard also makes a prediction on the *type* and if the accessories include glasses. Finally, the dashboard presents a price history chart for the Crypto Punk, as well as a network graph that illustrates it's trading history. The data displayed on the dashboard is processed from reading the *MongoDB* data available in the *Atlas* cluster, while the images are processed, exported to the cloud using *Amazon Web Services* *S3* bucket, and fed to the dashboard via *url* links.
 
-DASHBOARD BLUEPRINT
+The following is an image of our actual dashboard.
 
-Thus far, we have obtained the information we need to present in a dashboard. We built a successful machine learning model that can predict the type of CryptoPunks, as well as predict whether it has glasses or not. Now we need to visualize the prediction data for each CryptoPunk.
-
-Specifically, the user should be able to select a CryptoPunk and identify what type it is and whether has glasses or not. This way, the user will be able to interact with the data and have a better understanding of it. 
-
-What we need to create:
-
-This dashboard consists of the following materials:
-Design
-
-![htlm1](https://user-images.githubusercontent.com/87447639/149423340-df51b870-6a79-4d77-9c39-3494b36233f9.PNG)
-
-![htlm2](https://user-images.githubusercontent.com/87447639/149423342-8f0f8623-d892-4776-bdba-f910aab5b6eb.PNG)
-
-Drop Down Menu
--	Create a drop down menu so the user can select a CryptoPunk.
--	Create an interactive button option to obtain more info about that Crypto Punk. When the user click that button a second page will be display with a menu to show “Graph Price”, “Accessories attributes” and “History Transaction”.  
-Crypto Punk Image
--	Display the image of the selected cryptopunk
-o	Visual
- 
-Crypto Punk Table Information
--	Create a table containing basic information about the selected cryptopunk
-
-Glasses Prediction
--	Option A: Create a Red and Green button group that changes the intensity of the color depending whether the CryptoPunk has glasses or not.  Using the opacity property, reduce the opacity of red when the option is YES or reduce the opacity of green when the option is NO. 
-Resource: https://www.w3schools.com/css/css3_buttons.asp 
-
-Type Prediction
--	Option A: Create an image box that changes the icon depending on the prediction. Display de Female Icon if its female, Male Icon if its Male or Other Icon if its other. 
-o	Recources: 
-o	Female Icon https://www.toptal.com/designers/htmlarrows/symbols/female-sign/
-o	Male Icon https://www.toptal.com/designers/htmlarrows/symbols/male-sign/
-o	None Icon https://www.toptal.com/designers/htmlarrows/punctuation/non-breaking-hyphen/ 
- 
--	Option B: Create a Gauge chart that places the needle according to the type
-                              
-
-## ✓ Dashboard Live Demo (heroku)
+![Visualization_Screenshot](https://user-images.githubusercontent.com/87447639/151211870-627a617b-7d5f-48bc-8a53-1c0d40e5e4ab.png)
